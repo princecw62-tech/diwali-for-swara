@@ -1,0 +1,338 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Happy Diwali Swara ❤️</title>
+
+<style>
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  min-height: 100vh;
+  overflow-x: hidden;
+  font-family: 'Trebuchet MS', sans-serif;
+  background: linear-gradient(135deg, #260d2c, #581c46, #29102e);
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 20px;
+}
+
+.container {
+  width: 100%;
+  max-width: 450px;
+  padding: 35px 22px;
+  border: 1px solid rgba(255, 200, 220, 0.3);
+  border-radius: 30px;
+  background: rgba(255,255,255,0.07);
+  box-shadow: 0 0 40px rgba(255, 100, 180, 0.18);
+  position: relative;
+  z-index: 2;
+}
+
+.diyas {
+  font-size: 45px;
+  animation: glow 1.5s infinite alternate;
+}
+
+h1 {
+  color: #ffd78e;
+  font-size: 30px;
+  margin: 20px 0 10px;
+  text-shadow: 0 0 15px #ff9d37;
+}
+
+.name {
+  font-size: 37px;
+  color: #ff9bcf;
+  margin: 15px 0;
+  animation: heartbeat 1.5s infinite;
+}
+
+.subtitle {
+  color: #ffe1ee;
+  font-size: 16px;
+  line-height: 1.7;
+  margin: 20px 0;
+}
+
+button {
+  border: none;
+  padding: 16px 25px;
+  border-radius: 50px;
+  background: linear-gradient(45deg, #ff65a5, #ff9eae);
+  color: white;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  box-shadow: 0 5px 25px rgba(255, 90, 160, 0.4);
+  transition: 0.3s;
+}
+
+button:hover {
+  transform: scale(1.08);
+  box-shadow: 0 0 30px #ff72b4;
+}
+
+button:active {
+  transform: scale(0.95);
+}
+
+.small {
+  color: #ffbedb;
+  font-size: 13px;
+  margin-top: 18px;
+}
+
+.footer {
+  margin-top: 30px;
+  color: #ffd5e6;
+  font-size: 14px;
+}
+
+/* Popup */
+
+.popup {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 10;
+  background: rgba(15, 4, 20, 0.8);
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  backdrop-filter: blur(6px);
+}
+
+.popup-content {
+  width: 100%;
+  max-width: 370px;
+  padding: 35px 23px;
+  border-radius: 28px;
+  background: linear-gradient(145deg, #ffe1ef, #ffc2df, #f9d5ff);
+  color: #8e285e;
+  box-shadow: 0 0 45px #ff85c0;
+  animation: pop 0.5s ease;
+  position: relative;
+}
+
+.popup-content h2 {
+  font-size: 28px;
+  margin: 12px 0;
+}
+
+.popup-content p {
+  font-size: 17px;
+  line-height: 1.8;
+  margin: 18px 0;
+}
+
+.popup-content .big-heart {
+  font-size: 55px;
+  animation: heartbeat 1s infinite;
+}
+
+.close-btn {
+  background: linear-gradient(45deg, #d94391, #ff77b3);
+  padding: 12px 28px;
+  font-size: 14px;
+}
+
+/* Animations */
+
+@keyframes glow {
+  from { filter: drop-shadow(0 0 5px orange); }
+  to { filter: drop-shadow(0 0 20px gold); }
+}
+
+@keyframes heartbeat {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.08); }
+}
+
+@keyframes pop {
+  from { transform: scale(0.5); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
+}
+
+.floating {
+  position: fixed;
+  bottom: -30px;
+  z-index: 1;
+  pointer-events: none;
+  animation: floatUp linear forwards;
+}
+
+@keyframes floatUp {
+  to {
+    transform: translateY(-110vh) rotate(360deg);
+    opacity: 0;
+  }
+}
+
+.sparkle {
+  position: fixed;
+  pointer-events: none;
+  color: #ffd88a;
+  animation: twinkle 2s infinite alternate;
+}
+
+@keyframes twinkle {
+  from { opacity: 0.2; transform: scale(0.7); }
+  to { opacity: 1; transform: scale(1.3); }
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+  <div class="diyas">🪔 ✨ 🪔</div>
+
+  <h1>HAPPY DIWALI</h1>
+
+  <div class="name">
+    TO MY DIL WALI 💗
+  </div>
+
+  <div style="font-size:32px; margin:15px;">
+    SWARAAAA 🎀
+  </div>
+
+  <p class="subtitle">
+    Helloooo my cutest little patakhaaa! 🥹💕
+    <br><br>
+    This Diwali, I have a little surprise
+    specially made for you!
+  </p>
+
+  <button onclick="openSurprise()">
+    🎁 CLICK HERE FOR SURPRISE 🎁
+  </button>
+
+  <p class="small">
+    Psst... it's made with lots of love! 🤭
+  </p>
+
+  <div class="footer">
+    Made with endless love ❤️<br>
+    Just for my favourite girl!
+  </div>
+
+  <div class="diyas" style="margin-top:25px;">
+    🪔 💕 🪔
+  </div>
+
+</div>
+
+<!-- Surprise Popup -->
+
+<div class="popup" id="popup">
+
+  <div class="popup-content">
+
+    <div class="big-heart">💗</div>
+
+    <h2>Awww Swaraaa! 🥹</h2>
+
+    <p>
+      You are literally the cutest little
+      firecracker of my life! 🎆
+      <br><br>
+
+      Your smile makes everything brighter,
+      your cuteness is sweeter than all the
+      mithai, and your presence makes every
+      ordinary day feel like Diwali! ✨
+      <br><br>
+
+      Never stop smiling, meri jaan! 🧸
+      <br><br>
+
+      <b>You are my favourite reason to celebrate! ❤️</b>
+    </p>
+
+    <div style="font-size:30px; margin-bottom:20px;">
+      🪔 💕 🪔
+    </div>
+
+    <button class="close-btn" onclick="closeSurprise()">
+      Awww! Close 💗
+    </button>
+
+  </div>
+</div>
+
+<script>
+
+// Open surprise popup
+function openSurprise() {
+  document.getElementById("popup").style.display = "flex";
+
+  // Create extra floating hearts
+  for (let i = 0; i < 25; i++) {
+    setTimeout(createHeart, i * 100);
+  }
+}
+
+// Close popup
+function closeSurprise() {
+  document.getElementById("popup").style.display = "none";
+}
+
+// Floating hearts
+function createHeart() {
+  const heart = document.createElement("div");
+
+  const emojis = ["💗", "💕", "❤️", "✨", "💖", "🌸"];
+
+  heart.className = "floating";
+  heart.innerHTML = emojis[
+    Math.floor(Math.random() * emojis.length)
+  ];
+
+  heart.style.left = Math.random() * 100 + "vw";
+  heart.style.fontSize = (18 + Math.random() * 25) + "px";
+  heart.style.animationDuration = (3 + Math.random() * 4) + "s";
+
+  document.body.appendChild(heart);
+
+  setTimeout(() => heart.remove(), 7000);
+}
+
+// Background floating hearts
+setInterval(createHeart, 600);
+
+// Small sparkles
+for (let i = 0; i < 20; i++) {
+  const star = document.createElement("div");
+  star.className = "sparkle";
+  star.innerHTML = "✦";
+  star.style.left = Math.random() * 100 + "vw";
+  star.style.top = Math.random() * 100 + "vh";
+  star.style.fontSize = (10 + Math.random() * 15) + "px";
+  star.style.animationDelay = Math.random() * 2 + "s";
+  document.body.appendChild(star);
+}
+
+// Close popup if background is clicked
+document.getElementById("popup").addEventListener("click", function(e) {
+  if (e.target === this) {
+    closeSurprise();
+  }
+});
+
+</script>
+
+</body>
+</html>
