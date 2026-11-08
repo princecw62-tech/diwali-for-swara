@@ -4,6 +4,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#35132f">
 <title>Happy Diwali Swara ❤️</title>
 
 <style>
@@ -16,7 +17,9 @@
 body {
   min-height: 100vh;
   overflow-x: hidden;
-  font-family: 'Trebuchet MS', sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont,
+    "SF Pro Display", "SF Pro Text",
+    "Helvetica Neue", Arial, sans-serif;
   background: linear-gradient(135deg, #260d2c, #581c46, #29102e);
   color: white;
   display: flex;
@@ -26,14 +29,18 @@ body {
   padding: 20px;
 }
 
+/* Main container */
+
 .container {
   width: 100%;
   max-width: 450px;
   padding: 35px 22px;
-  border: 1px solid rgba(255, 200, 220, 0.3);
+  border: 1px solid rgba(255,200,220,.3);
   border-radius: 30px;
-  background: rgba(255,255,255,0.07);
-  box-shadow: 0 0 40px rgba(255, 100, 180, 0.18);
+  background: rgba(255,255,255,.07);
+  backdrop-filter: blur(15px);
+  -webkit-backdrop-filter: blur(15px);
+  box-shadow: 0 0 40px rgba(255,100,180,.18);
   position: relative;
   z-index: 2;
 }
@@ -48,10 +55,12 @@ h1 {
   font-size: 30px;
   margin: 20px 0 10px;
   text-shadow: 0 0 15px #ff9d37;
+  letter-spacing: 1px;
 }
 
 .name {
-  font-size: 37px;
+  font-size: 34px;
+  font-weight: 800;
   color: #ff9bcf;
   margin: 15px 0;
   animation: heartbeat 1.5s infinite;
@@ -60,30 +69,30 @@ h1 {
 .subtitle {
   color: #ffe1ee;
   font-size: 16px;
-  line-height: 1.7;
+  line-height: 1.8;
   margin: 20px 0;
 }
 
-button {
+.main-btn {
   border: none;
   padding: 16px 25px;
   border-radius: 50px;
-  background: linear-gradient(45deg, #ff65a5, #ff9eae);
+  background: linear-gradient(45deg,#ff65a5,#ff9eae);
   color: white;
-  font-size: 16px;
-  font-weight: bold;
+  font-size: 15px;
+  font-weight: 700;
+  box-shadow: 0 5px 25px rgba(255,90,160,.4);
+  transition: .3s;
   cursor: pointer;
-  box-shadow: 0 5px 25px rgba(255, 90, 160, 0.4);
-  transition: 0.3s;
 }
 
-button:hover {
-  transform: scale(1.08);
+.main-btn:hover {
+  transform: scale(1.06);
   box-shadow: 0 0 30px #ff72b4;
 }
 
-button:active {
-  transform: scale(0.95);
+.main-btn:active {
+  transform: scale(.95);
 }
 
 .small {
@@ -96,6 +105,7 @@ button:active {
   margin-top: 30px;
   color: #ffd5e6;
   font-size: 14px;
+  line-height: 1.8;
 }
 
 /* Popup */
@@ -105,63 +115,231 @@ button:active {
   position: fixed;
   inset: 0;
   z-index: 10;
-  background: rgba(15, 4, 20, 0.8);
+  background: rgba(15,4,20,.87);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
   justify-content: center;
   align-items: center;
-  padding: 20px;
-  backdrop-filter: blur(6px);
+  padding: 18px;
 }
 
-.popup-content {
+.popup.show {
+  display: flex;
+  animation: fadeIn .4s ease;
+}
+
+/* Envelope */
+
+.envelope-area {
   width: 100%;
   max-width: 370px;
-  padding: 35px 23px;
-  border-radius: 28px;
-  background: linear-gradient(145deg, #ffe1ef, #ffc2df, #f9d5ff);
+  animation: envelopeEnter .8s cubic-bezier(.2,.8,.2,1);
+}
+
+.envelope {
+  position: relative;
+  width: 100%;
+  height: 225px;
+  background: #ffb6d5;
+  border-radius: 12px;
+  box-shadow: 0 15px 50px rgba(255,100,180,.3);
+  cursor: pointer;
+  perspective: 1000px;
+}
+
+.envelope-back {
+  position: absolute;
+  inset: 0;
+  background: #f28ab9;
+  border-radius: 12px;
+}
+
+.envelope-front {
+  position: absolute;
+  inset: 0;
+  background: #ffc9df;
+  clip-path: polygon(0 0,50% 58%,100% 0,100% 100%,0 100%);
+  z-index: 3;
+  border-radius: 12px;
+}
+
+.envelope-flap {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 60%;
+  background: #ff8dbd;
+  clip-path: polygon(0 0,100% 0,50% 100%);
+  transform-origin: top;
+  transition: transform .8s ease;
+  z-index: 5;
+}
+
+.envelope.open .envelope-flap {
+  transform: rotateX(180deg);
+  z-index: 1;
+}
+
+.envelope-heart {
+  position: absolute;
+  z-index: 4;
+  top: 42%;
+  left: 50%;
+  transform: translate(-50%,-50%);
+  font-size: 42px;
+  transition: .4s;
+}
+
+.envelope.open .envelope-heart {
+  opacity: 0;
+}
+
+.envelope-hint {
+  color: #ffe1ee;
+  margin-top: 22px;
+  font-size: 15px;
+  animation: heartbeat 1.5s infinite;
+}
+
+/* Love letter */
+
+.letter {
+  display: none;
+  width: 100%;
+  max-width: 390px;
+  max-height: 82vh;
+  overflow-y: auto;
+  padding: 30px 23px;
+  border-radius: 25px;
+  background: linear-gradient(145deg,#fff0f6,#ffd3e6,#f9d5ff);
   color: #8e285e;
   box-shadow: 0 0 45px #ff85c0;
-  animation: pop 0.5s ease;
-  position: relative;
+  text-align: center;
+  overscroll-behavior: contain;
+  scrollbar-width: thin;
+  scrollbar-color: #e88bb9 transparent;
 }
 
-.popup-content h2 {
-  font-size: 28px;
-  margin: 12px 0;
+.letter.visible {
+  display: block;
+  animation: letterReveal .9s ease;
 }
 
-.popup-content p {
-  font-size: 17px;
-  line-height: 1.8;
-  margin: 18px 0;
-}
-
-.popup-content .big-heart {
-  font-size: 55px;
+.letter-icon {
+  font-size: 48px;
   animation: heartbeat 1s infinite;
 }
 
+.letter h2 {
+  font-size: 27px;
+  margin: 15px 0;
+}
+
+.letter-subtitle {
+  font-size: 13px;
+  color: #b85b8c;
+  letter-spacing: 1px;
+  margin-bottom: 20px;
+}
+
+#typedMessage {
+  white-space: pre-wrap;
+  text-align: left;
+  font-size: 15px;
+  line-height: 1.9;
+  min-height: 240px;
+  color: #8e285e;
+}
+
+#typedMessage::after {
+  content: "▋";
+  display: inline-block;
+  color: #d94391;
+  animation: blink .7s infinite;
+}
+
+#typedMessage.finished::after {
+  display: none;
+}
+
+.letter-decoration {
+  font-size: 30px;
+  margin: 18px 0;
+}
+
+.signature {
+  font-size: 19px;
+  font-weight: 800;
+  color: #d94391;
+  margin: 15px 0 20px;
+}
+
 .close-btn {
-  background: linear-gradient(45deg, #d94391, #ff77b3);
-  padding: 12px 28px;
+  border: none;
+  border-radius: 50px;
+  padding: 13px 28px;
+  background: linear-gradient(45deg,#d94391,#ff77b3);
+  color: white;
   font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow: 0 5px 20px rgba(217,67,145,.3);
+  transition: .3s;
+}
+
+.close-btn:hover {
+  transform: scale(1.06);
 }
 
 /* Animations */
 
 @keyframes glow {
-  from { filter: drop-shadow(0 0 5px orange); }
-  to { filter: drop-shadow(0 0 20px gold); }
+  from {
+    filter: drop-shadow(0 0 5px orange);
+  }
+  to {
+    filter: drop-shadow(0 0 20px gold);
+  }
 }
 
 @keyframes heartbeat {
-  0%, 100% { transform: scale(1); }
+  0%,100% { transform: scale(1); }
   50% { transform: scale(1.08); }
 }
 
-@keyframes pop {
-  from { transform: scale(0.5); opacity: 0; }
-  to { transform: scale(1); opacity: 1; }
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
 }
+
+@keyframes envelopeEnter {
+  from {
+    transform: translateY(50px) scale(.8);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0) scale(1);
+    opacity: 1;
+  }
+}
+
+@keyframes letterReveal {
+  from {
+    transform: translateY(40px) scale(.8);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0) scale(1);
+    opacity: 1;
+  }
+}
+
+@keyframes blink {
+  50% { opacity: 0; }
+}
+
+/* Floating hearts */
 
 .floating {
   position: fixed;
@@ -169,6 +347,7 @@ button:active {
   z-index: 1;
   pointer-events: none;
   animation: floatUp linear forwards;
+  user-select: none;
 }
 
 @keyframes floatUp {
@@ -178,6 +357,8 @@ button:active {
   }
 }
 
+/* Sparkles */
+
 .sparkle {
   position: fixed;
   pointer-events: none;
@@ -186,14 +367,59 @@ button:active {
 }
 
 @keyframes twinkle {
-  from { opacity: 0.2; transform: scale(0.7); }
-  to { opacity: 1; transform: scale(1.3); }
+  from {
+    opacity: .2;
+    transform: scale(.7);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1.3);
+  }
 }
 
+/* Mobile */
+
+@media(max-width:480px) {
+  .container {
+    padding: 30px 18px;
+  }
+
+  h1 {
+    font-size: 27px;
+  }
+
+  .name {
+    font-size: 30px;
+  }
+
+  .letter {
+    padding: 25px 19px;
+  }
+
+  .letter h2 {
+    font-size: 24px;
+  }
+
+  #typedMessage {
+    font-size: 14px;
+  }
+}
+
+/* Reduced motion accessibility */
+
+@media(prefers-reduced-motion:reduce) {
+  *, *::before, *::after {
+    animation-duration: .01ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+  }
+}
 </style>
 </head>
 
 <body>
+
+<!-- MAIN SCREEN -->
 
 <div class="container">
 
@@ -205,7 +431,7 @@ button:active {
     TO MY DIL WALI 💗
   </div>
 
-  <div style="font-size:32px; margin:15px;">
+  <div style="font-size:32px;margin:15px;">
     SWARAAAA 🎀
   </div>
 
@@ -216,7 +442,7 @@ button:active {
     specially made for you!
   </p>
 
-  <button onclick="openSurprise()">
+  <button class="main-btn" onclick="openSurprise()">
     🎁 CLICK HERE FOR SURPRISE 🎁
   </button>
 
@@ -225,7 +451,8 @@ button:active {
   </p>
 
   <div class="footer">
-    Made with endless love ❤️<br>
+    Made with endless love ❤️
+    <br>
     Just for my favourite girl!
   </div>
 
@@ -235,35 +462,62 @@ button:active {
 
 </div>
 
-<!-- Surprise Popup -->
+
+<!-- SURPRISE POPUP -->
 
 <div class="popup" id="popup">
 
-  <div class="popup-content">
+  <!-- ENVELOPE -->
 
-    <div class="big-heart">💗</div>
+  <div class="envelope-area" id="envelopeArea">
 
-    <h2>Awww Swaraaa! 🥹</h2>
+    <div
+      class="envelope"
+      id="envelope"
+      onclick="openLetter()"
+      role="button"
+      tabindex="0"
+      aria-label="Open your love letter"
+      onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();openLetter();}"
+    >
 
-    <p>
-      You are literally the cutest little
-      firecracker of my life! 🎆
-      <br><br>
+      <div class="envelope-back"></div>
 
-      Your smile makes everything brighter,
-      your cuteness is sweeter than all the
-      mithai, and your presence makes every
-      ordinary day feel like Diwali! ✨
-      <br><br>
+      <div class="envelope-flap"></div>
 
-      Never stop smiling, meri jaan! 🧸
-      <br><br>
+      <div class="envelope-heart">💌</div>
 
-      <b>You are my favourite reason to celebrate! ❤️</b>
+      <div class="envelope-front"></div>
+
+    </div>
+
+    <p class="envelope-hint">
+      💗 Tap the envelope to open your letter 💗
     </p>
 
-    <div style="font-size:30px; margin-bottom:20px;">
+  </div>
+
+
+  <!-- LOVE LETTER -->
+
+  <div class="letter" id="letter">
+
+    <div class="letter-icon">💗</div>
+
+    <h2>My Dearest Swaraaa 🥹</h2>
+
+    <div class="letter-subtitle">
+      A LITTLE LETTER FROM MY HEART
+    </div>
+
+    <p id="typedMessage"></p>
+
+    <div class="letter-decoration">
       🪔 💕 🪔
+    </div>
+
+    <div class="signature">
+      Forever lots of love ❤️
     </div>
 
     <button class="close-btn" onclick="closeSurprise()">
@@ -271,65 +525,233 @@ button:active {
     </button>
 
   </div>
+
 </div>
+
 
 <script>
 
-// Open surprise popup
-function openSurprise() {
-  document.getElementById("popup").style.display = "flex";
+// LOVE LETTER MESSAGE
 
-  // Create extra floating hearts
-  for (let i = 0; i < 25; i++) {
+const loveMessage = `Helloooo meri jaan! 💕 
+
+I don't know how to explain how special you are to me, but I hope this little letter makes you smile. 🥹
+
+Your smile makes everything brighter, your cuteness is sweeter than all the mithai, and your presence makes every ordinary day feel like Diwali! ✨
+
+I wish your life is always filled with happiness, endless laughter, beautiful memories and all the love you deserve. ❤️
+
+Never stop smiling, meri jaan! 🧸
+
+You are my favourite reason to celebrate! 💗`;
+
+let typingTimer = null;
+
+
+// OPEN SURPRISE POPUP
+
+function openSurprise() {
+
+  const popup = document.getElementById("popup");
+
+  popup.classList.add("show");
+
+  document.getElementById("envelopeArea").style.display = "block";
+
+  document.getElementById("letter").classList.remove("visible");
+
+  document.getElementById("envelope").classList.remove("open");
+
+  document.getElementById("typedMessage").textContent = "";
+
+  document.getElementById("typedMessage").classList.remove("finished");
+
+  clearInterval(typingTimer);
+
+  // Floating hearts
+
+  for(let i = 0; i < 25; i++) {
     setTimeout(createHeart, i * 100);
   }
+
 }
 
-// Close popup
+
+// OPEN ENVELOPE
+
+function openLetter() {
+
+  const envelope = document.getElementById("envelope");
+
+  if(envelope.classList.contains("open")) return;
+
+  envelope.classList.add("open");
+
+  // Reveal letter after envelope animation
+
+  setTimeout(() => {
+
+    document.getElementById("envelopeArea").style.display = "none";
+
+    const letter = document.getElementById("letter");
+
+    letter.classList.add("visible");
+
+    typeLoveLetter();
+
+  }, 850);
+
+
+  // Extra hearts
+
+  for(let i = 0; i < 20; i++) {
+    setTimeout(createHeart, i * 100);
+  }
+
+}
+
+
+// TYPEWRITER ANIMATION
+
+function typeLoveLetter() {
+
+  const element = document.getElementById("typedMessage");
+
+  let index = 0;
+
+  clearInterval(typingTimer);
+
+  element.textContent = "";
+
+  element.classList.remove("finished");
+
+  typingTimer = setInterval(() => {
+
+    if(index < loveMessage.length) {
+
+      element.textContent += loveMessage.charAt(index);
+
+      index++;
+
+      // Auto-scroll to keep new text visible
+
+      const letter = document.getElementById("letter");
+
+      letter.scrollTop = letter.scrollHeight;
+
+    } else {
+
+      clearInterval(typingTimer);
+
+      element.classList.add("finished");
+
+    }
+
+  }, 45);
+
+}
+
+
+// CLOSE POPUP
+
 function closeSurprise() {
-  document.getElementById("popup").style.display = "none";
+
+  document.getElementById("popup").classList.remove("show");
+
+  clearInterval(typingTimer);
+
 }
 
-// Floating hearts
+
+// FLOATING HEARTS
+
 function createHeart() {
+
   const heart = document.createElement("div");
 
-  const emojis = ["💗", "💕", "❤️", "✨", "💖", "🌸"];
+  const emojis = [
+    "💗",
+    "💕",
+    "❤️",
+    "✨",
+    "💖",
+    "🌸",
+    "🦋",
+    "💝"
+  ];
 
   heart.className = "floating";
-  heart.innerHTML = emojis[
+
+  heart.textContent = emojis[
     Math.floor(Math.random() * emojis.length)
   ];
 
   heart.style.left = Math.random() * 100 + "vw";
-  heart.style.fontSize = (18 + Math.random() * 25) + "px";
-  heart.style.animationDuration = (3 + Math.random() * 4) + "s";
+
+  heart.style.fontSize =
+    (18 + Math.random() * 25) + "px";
+
+  heart.style.animationDuration =
+    (3 + Math.random() * 4) + "s";
 
   document.body.appendChild(heart);
 
-  setTimeout(() => heart.remove(), 7000);
+  setTimeout(() => {
+    heart.remove();
+  }, 7000);
+
 }
 
-// Background floating hearts
-setInterval(createHeart, 600);
 
-// Small sparkles
-for (let i = 0; i < 20; i++) {
+// BACKGROUND HEARTS
+
+setInterval(createHeart, 1000);
+
+
+// SPARKLES
+
+for(let i = 0; i < 20; i++) {
+
   const star = document.createElement("div");
+
   star.className = "sparkle";
-  star.innerHTML = "✦";
+
+  star.textContent = "✦";
+
   star.style.left = Math.random() * 100 + "vw";
+
   star.style.top = Math.random() * 100 + "vh";
-  star.style.fontSize = (10 + Math.random() * 15) + "px";
-  star.style.animationDelay = Math.random() * 2 + "s";
+
+  star.style.fontSize =
+    (10 + Math.random() * 15) + "px";
+
+  star.style.animationDelay =
+    Math.random() * 2 + "s";
+
   document.body.appendChild(star);
+
 }
 
-// Close popup if background is clicked
+
+// CLOSE POPUP ON OUTSIDE CLICK
+
 document.getElementById("popup").addEventListener("click", function(e) {
-  if (e.target === this) {
+
+  if(e.target === this) {
     closeSurprise();
   }
+
+});
+
+
+// ESCAPE KEY
+
+document.addEventListener("keydown", function(e) {
+
+  if(e.key === "Escape") {
+    closeSurprise();
+  }
+
 });
 
 </script>
